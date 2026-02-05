@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E35301612F34056200A44B66 /* knife_chop.wav in Resources */ = {isa = PBXBuildFile; fileRef = E35301602F34056200A44B66 /* knife_chop.wav */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E35301022F32547700A44B66 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		E35300F42F32547600A44B66 /* BraidingGameSpriteKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BraidingGameSpriteKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E35301012F32547700A44B66 /* BraidingGameSpriteKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BraidingGameSpriteKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E353010B2F32547700A44B66 /* BraidingGameSpriteKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BraidingGameSpriteKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E35301602F34056200A44B66 /* knife_chop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = knife_chop.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		E35300EB2F32547600A44B66 = {
 			isa = PBXGroup;
 			children = (
+				E35301602F34056200A44B66 /* knife_chop.wav */,
 				E35300F62F32547600A44B66 /* BraidingGameSpriteKit */,
 				E35301042F32547700A44B66 /* BraidingGameSpriteKitTests */,
 				E353010E2F32547700A44B66 /* BraidingGameSpriteKitUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E35301612F34056200A44B66 /* knife_chop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
