@@ -7,262 +7,182 @@
 
 import SwiftUI
 
-// MARK: - STAR SHAPE (for star confetti)
 
-struct StarShape: Shape {
-    let points: Int
+// CelebrationView (Jar + Fireworks + Confetti)
 
-    func path(in rect: CGRect) -> Path {
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let outerRadius = min(rect.width, rect.height) / 2
-        let innerRadius = outerRadius * 0.45
 
-        var path = Path()
-        var angle: Double = -.pi / 2
-        let angleIncrement = 2 * .pi / Double(points * 2)
-        var isOuter = true
 
-        for i in 0..<(points * 2) {
-            let radius = isOuter ? outerRadius : innerRadius
-            let x = center.x + CGFloat(cos(angle)) * radius
-            let y = center.y + CGFloat(sin(angle)) * radius
-
-            if i == 0 {
-                path.move(to: CGPoint(x: x, y: y))
-            } else {
-                path.addLine(to: CGPoint(x: x, y: y))
-            }
-
-            isOuter.toggle()
-            angle += angleIncrement
-        }
-
-        path.closeSubpath()
-        return path
-    }
-}
-
-// MARK: - PARTICLE MODEL (stars + confetti)
-
-struct Particle: Identifiable {
-    let id = UUID()
-    let angle: Double
-    let distance: CGFloat
-    let color: Color
-    let size: CGFloat
-    let isStar: Bool
-
-    static func randomColor() -> Color {
-        [
-            .yellow, .pink, .purple, .blue,
-            .orange, .mint, .red, .green
-        ].randomElement()!
-    }
-}
-
-// MARK: - PARTICLE VIEW
-
-struct ParticleView: View {
-    let particle: Particle
-
-    @State private var radius: CGFloat = 0
-    @State private var opacity: Double = 1
-    @State private var rotation: Double = 0
-
-    var body: some View {
-        ZStack {
-            if particle.isStar {
-                StarShape(points: 5)
-                    .fill(particle.color)
-            } else {
-                RoundedRectangle(cornerRadius: 3)
-                    .fill(particle.color)
-            }
-        }
-        .frame(width: particle.size, height: particle.size)
-        .offset(x: offsetX, y: offsetY)
-        .opacity(opacity)
-        .rotationEffect(.degrees(rotation))
-        .onAppear {
-            withAnimation(.easeOut(duration: 1.3)) {
-                radius = particle.distance
-                opacity = 0
-            }
-            withAnimation(.linear(duration: 1.3)) {
-                rotation = Double.random(in: -360...360)
-            }
-        }
-    }
-
-    private var offsetX: CGFloat {
-        CGFloat(cos(particle.angle)) * radius
-    }
-
-    private var offsetY: CGFloat {
-        CGFloat(sin(particle.angle)) * radius
-    }
-}
-
-// MARK: - FIREWORK MODEL
-
-struct Firework: Identifiable {
-    let id = UUID()
-    let angle: Double      // where around the jar
-    let distance: CGFloat  // how far from jar center
-    let color: Color
-}
-
-// MARK: - SIMPLE FIREWORK VIEW (glowing ring)
-
-struct FireworkView: View {
-    let firework: Firework
-
-    @State private var scale: CGFloat = 0.1
-    @State private var opacity: Double = 1
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .stroke(
-                    AngularGradient(
-                        gradient: Gradient(colors: [
-                            firework.color.opacity(0.9),
-                            firework.color.opacity(0.4),
-                            firework.color.opacity(0.9)
-                        ]),
-                        center: .center
-                    ),
-                    lineWidth: 6
-                )
-                .blur(radius: 1.5)
-
-            Circle()
-                .stroke(firework.color.opacity(0.6), lineWidth: 2)
-        }
-        .frame(width: 180, height: 180)
-        .scaleEffect(scale)
-        .opacity(opacity)
-        .offset(x: offsetX, y: offsetY)
-        .onAppear {
-            withAnimation(.easeOut(duration: 1.4)) {
-                scale = 1
-                opacity = 0
-            }
-        }
-    }
-
-    private var offsetX: CGFloat {
-        CGFloat(cos(firework.angle)) * firework.distance
-    }
-
-    private var offsetY: CGFloat {
-        CGFloat(sin(firework.angle)) * firework.distance
-    }
-}
-
-// MARK: - MAIN CELEBRATION VIEW
 
 struct CelebrationView: View {
-    @State private var particles: [Particle] = []
-    @State private var fireworks: [Firework] = []
+    @State private var pulse = false
+    @State private var confettiFall = false
+
+    var onGoToLevel3:  (() -> Void)?
+    
+    var body: some View {
+        ZStack {
+
+            // 🔥 Fireworks behind jar
+            ForEach(0..<5) { index in
+                FireworkBurst()
+                    .rotationEffect(.degrees(Double(index) * 72))
+                    .scaleEffect(pulse ? 1.2 : 0.85)
+                    .opacity(pulse ? 1.0 : 0.5)
+                    .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true), value: pulse)
+            }
+
+            // 🎊 Falling confetti (layer 1)
+            ConfettiLayer(delay: 0)
+            ConfettiLayer(delay: 0.3)
+            ConfettiLayer(delay: 0.6)
+
+            // 🫙 Jar + Right On!
+            VStack(spacing: 12) {
+                
+                Image("hair_grease")   // ⬅️ Make sure this matches your asset name
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 325, height: 350)
+                    .shadow(radius: 8)
+                    .onTapGesture {
+                        onGoToLevel3?()
+                        
+                    }
+            }
+        }
+        .padding(40)
+        .background(Color.clear)  // 🔑 Transparent
+        .onAppear {
+            pulse = true
+        }
+    }
+}
+
+
+
+import SwiftUI
+
+// Jar + Fireworks + Confetti overlay (no background)
+
+struct CelebrationJarOverlay: View {
+    @State private var pulse = false
 
     var body: some View {
         ZStack {
-            // Black background
-            Color.black
-                .ignoresSafeArea()
 
-            // Tap Magic hair grease jar
-            Image("hair_grease")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 450, height: 450)
-                .shadow(radius: 20)
-
-            // Stars + confetti
-            ForEach(particles) { particle in
-                ParticleView(particle: particle)
+            // 🔥 Fireworks behind jar
+            ForEach(0..<5) { index in
+                FireworkBurst()
+                    .rotationEffect(Angle.degrees(Double(index) * 72))
+                    .scaleEffect(pulse ? 1.2 : 0.85)
+                    .opacity(pulse ? 1.0 : 0.5)
+                    .animation(
+                        Animation
+                            .easeInOut(duration: 1.0)
+                            .repeatForever(autoreverses: true),
+                        value: pulse
+                    )
             }
 
-            // Firework rings
-            ForEach(fireworks) { fw in
-                FireworkView(firework: fw)
+            // Falling confetti layers
+            ConfettiLayer(delay: 0)
+            ConfettiLayer(delay: 0.3)
+            ConfettiLayer(delay: 0.6)
+
+            // Jar + text
+            VStack(spacing: 12) {
+                
+                Image("hair_grease")   // ⬅️ make sure this matches your asset name
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 275, height: 275)
+                    .shadow(radius: 8)
             }
         }
+        .padding(40)
+        .background(Color.burntOrange)   // transparent, no black fullscreen background
         .onAppear {
-            spawnParticles()
-            spawnFireworks()
+            pulse = true
         }
     }
+}
 
-    // MARK: - Spawn stars + confetti
+// FireworkBurst (dotted fireworks)
 
-    private func spawnParticles() {
-        particles.removeAll()
-        let total = 60
+struct FireworkBurst: View {
+    @State private var expand = false
 
-        for i in 0..<total {
-            let delay = Double(i) * 0.02
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                let angle = Double.random(in: 0...(2 * .pi))
-                let distance = CGFloat.random(in: 160...320)
-                let isStar = Bool.random()
-
-                let particle = Particle(
-                    angle: angle,
-                    distance: distance,
-                    color: Particle.randomColor(),
-                    size: CGFloat.random(in: isStar ? 18...26 : 10...16),
-                    isStar: isStar
-                )
-
-                particles.append(particle)
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    particles.removeAll { $0.id == particle.id }
-                }
+    var body: some View {
+        ZStack {
+            ForEach(0..<12) { i in
+                Circle()
+                    .frame(width: 7, height: 7)
+                    .offset(x: expand ? 135 : 20)
+                    .rotationEffect(
+                        Angle.degrees(Double(i) / 12.0 * 360.0)
+                    )
             }
         }
-    }
-
-    // MARK: - Spawn fireworks
-
-    private func spawnFireworks() {
-        fireworks.removeAll()
-
-        let colors: [Color] = [
-            Color(red: 1.0, green: 0.84, blue: 0.4), // soft gold
-            Color(red: 1.0, green: 0.74, blue: 0.2), // deeper gold
-            Color(red: 1.0, green: 0.63, blue: 0.2)  // orange-gold
-        ]
-
-        let total = 4
-
-        for i in 0..<total {
-            let delay = Double(i) * 0.4
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                let angle = Double.random(in: 0...(2 * .pi))
-                let distance = CGFloat.random(in: 140...220)
-                let color = colors.randomElement() ?? .yellow
-
-                let fw = Firework(
-                    angle: angle,
-                    distance: distance,
-                    color: color
-                )
-
-                fireworks.append(fw)
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
-                    fireworks.removeAll { $0.id == fw.id }
-                }
+        .foregroundColor(.orange)
+        .opacity(0.9)
+        .onAppear {
+            withAnimation(
+                Animation
+                    .easeOut(duration: 0.7)
+                    .repeatForever(autoreverses: false)
+            ) {
+                expand = true
             }
         }
     }
 }
 
-// MARK: - PREVIEW
+// ConfettiLayer (falling confetti)
+
+struct ConfettiLayer: View {
+    let delay: Double
+    @State private var fall = false
+
+    var body: some View {
+        GeometryReader { geo in
+            ForEach(0..<20) { i in
+                Rectangle()
+                    .fill(randomConfettiColor())
+                    .frame(width: 8, height: 14)
+                    .rotationEffect(
+                        fall
+                        ? Angle.degrees(Double.random(in: 0...360))
+                        : Angle.degrees(0)
+                    )
+                    .position(
+                        x: CGFloat.random(in: 0...geo.size.width),
+                        y: fall ? geo.size.height + 40 : -40
+                    )
+                    .animation(
+                        Animation
+                            .interpolatingSpring(stiffness: 25, damping: 8)
+                            .delay(delay + Double(i) * 0.05)
+                            .repeatForever(autoreverses: false),
+                        value: fall
+                    )
+            }
+        }
+        .ignoresSafeArea()
+        .onAppear {
+            fall = true
+        }
+    }
+
+    private func randomConfettiColor() -> Color {
+        let colors: [Color] = [.yellow, .red, .blue, .orange, .pink, .purple, .green]
+        return colors.randomElement()!
+    }
+}
+
+
 
 #Preview {
     CelebrationView()
+        .background(Color.burntOrange)
 }
+

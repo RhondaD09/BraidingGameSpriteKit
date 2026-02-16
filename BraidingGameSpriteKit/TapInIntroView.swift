@@ -11,20 +11,23 @@ struct TapInIntroView: View {
     @State private var fingerOffset: CGFloat = -10
     @State private var buttonPressed = false
     @State private var goToBraids = false
-    
+
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.black.ignoresSafeArea()
-                
+                // 📸 BACKGROUND
+                Color.black
+                    .ignoresSafeArea()
+
+                // 🎯 FOREGROUND CONTENT
                 VStack(spacing: 20) {
                     Image("TapInLogo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 300)
+                        .frame(width: 450)
                         .offset(y: fingerOffset)
                         .animation(
-                            Animation.easeInOut(duration: 1.2)
+                            .easeInOut(duration: 1.2)
                                 .repeatForever(autoreverses: true),
                             value: fingerOffset
                         )
@@ -34,7 +37,7 @@ struct TapInIntroView: View {
                         .onTapGesture {
                             tapAction()
                         }
-                    
+
                     Text("Tap to Start")
                         .foregroundColor(.white.opacity(0.7))
                         .font(.headline)
@@ -42,23 +45,27 @@ struct TapInIntroView: View {
                         .opacity(buttonPressed ? 0 : 1)
                 }
             }
-            // IMPORTANT: This must match the new SwiftUI→SpriteKit wrapper
+            // 🚪 Navigation to braiding game
             .navigationDestination(isPresented: $goToBraids) {
-                BraidingGameView()   // ⬅️ THE FIX
+                BraidingGameView()
             }
         }
     }
-    
-    // MARK: - Tap Animation + Navigation
+
+    // Tap Animation + Navigation
     private func tapAction() {
         buttonPressed = true
-        
+
         withAnimation(.easeOut(duration: 0.15)) {
             fingerOffset = 5
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
             goToBraids = true
         }
     }
+}
+
+#Preview {
+    TapInIntroView()
 }
