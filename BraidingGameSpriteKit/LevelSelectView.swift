@@ -43,7 +43,7 @@ struct LevelSelectView: View {
                 HStack(spacing: 32) {
                     // Level 1 – Braiding
                     NavigationLink {
-                        BraidingGameView()
+                        BraidsView()
                     } label: {
                         Image("level_1")
                             .resizable()
@@ -74,14 +74,14 @@ struct LevelSelectView: View {
                     
                     
 //                    Level 4 - Puzzle
-//                    NavigationLink {
-//                        PuzzleSceneView()
-//                    } label: {
-//                        Image("level_4")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 120)
-//                    }
+                    NavigationLink {
+                        PuzzleView()
+                    } label: {
+                        Image("level_4")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 120)
+                    }
                 }
                 .padding(.top, 10)
                 .frame(maxWidth: .infinity, alignment: .center)  // 🔹 center row
