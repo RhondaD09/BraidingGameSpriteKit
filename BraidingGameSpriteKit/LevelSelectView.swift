@@ -43,7 +43,7 @@ struct LevelSelectView: View {
                 HStack(spacing: 32) {
                     // Level 1 – Braiding
                     NavigationLink {
-                        beadsBraids()
+                        BraidsView()
                     } label: {
                         Image("level_1")
                             .resizable()
@@ -75,7 +75,7 @@ struct LevelSelectView: View {
                     
 //                    Level 4 - Puzzle
                     NavigationLink {
-                        puzzleView()
+                        PuzzleView()
                     } label: {
                         Image("level_4")
                             .resizable()

@@ -64,9 +64,11 @@ class GameScene: SKScene {
         let bottomY = -size.height / 2 + girl.size.height / 2 + 20
         girl.position = CGPoint(x: 0, y: bottomY)
         
-        girl.setScale(0.7)
+        girl.setScale(0.36)
         girl.zPosition = -5
-        
+        let bottomEdge = -size.height / 2
+        let halfOfGirlHeight = (girl.size.height / 2)
+        girl.position = CGPoint(x: 0, y: bottomEdge + halfOfGirlHeight + 42)
         addChild(girl)
     }
     
@@ -267,4 +269,16 @@ func distance(to point: CGPoint) -> CGFloat {
         sqrt(pow(x - point.x, 2) + pow(y - point.y, 2))
     }
 }
+struct BraidsView: View {
+    var scene: SKScene {
+        let scene = GameScene()
+        scene.size = CGSize(width: 1024, height: 768) // Set to your preferred game size
+        scene.scaleMode = .fill
+        return scene
+    }
 
+    var body: some View {
+        SpriteView(scene: scene)
+            .ignoresSafeArea()
+    }
+}

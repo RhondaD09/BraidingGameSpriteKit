@@ -68,11 +68,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		F462841F2F44726700BB8DFB /* beadsBraids */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = beadsBraids;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +98,6 @@
 		E35300EB2F32547600A44B66 = {
 			isa = PBXGroup;
 			children = (
-				F462841F2F44726700BB8DFB /* beadsBraids */,
 				E353016A2F3A314500A44B66 /* Fonts */,
 				E35301622F34F36000A44B66 /* knife_chop_short.wav */,
 				E35300F62F32547600A44B66 /* BraidingGameSpriteKit */,
@@ -141,7 +135,6 @@
 			fileSystemSynchronizedGroups = (
 				E35300F62F32547600A44B66 /* BraidingGameSpriteKit */,
 				E353016A2F3A314500A44B66 /* Fonts */,
-				F462841F2F44726700BB8DFB /* beadsBraids */,
 			);
 			name = BraidingGameSpriteKit;
 			packageProductDependencies = (
