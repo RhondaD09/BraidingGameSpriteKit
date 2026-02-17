@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E35301632F34F36000A44B66 /* knife_chop_short.wav in Resources */ = {isa = PBXBuildFile; fileRef = E35301622F34F36000A44B66 /* knife_chop_short.wav */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		E35301022F32547700A44B66 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,11 +31,25 @@
 		E35300F42F32547600A44B66 /* BraidingGameSpriteKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BraidingGameSpriteKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E35301012F32547700A44B66 /* BraidingGameSpriteKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BraidingGameSpriteKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E353010B2F32547700A44B66 /* BraidingGameSpriteKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BraidingGameSpriteKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E35301622F34F36000A44B66 /* knife_chop_short.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = knife_chop_short.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E35301692F3A306800A44B66 /* Exceptions for "BraidingGameSpriteKit" folder in "BraidingGameSpriteKit" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E35300F32F32547600A44B66 /* BraidingGameSpriteKit */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E35300F62F32547600A44B66 /* BraidingGameSpriteKit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E35301692F3A306800A44B66 /* Exceptions for "BraidingGameSpriteKit" folder in "BraidingGameSpriteKit" target */,
+			);
 			path = BraidingGameSpriteKit;
 			sourceTree = "<group>";
 		};
@@ -43,6 +61,11 @@
 		E353010E2F32547700A44B66 /* BraidingGameSpriteKitUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BraidingGameSpriteKitUITests;
+			sourceTree = "<group>";
+		};
+		E353016A2F3A314500A44B66 /* Fonts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +98,8 @@
 		E35300EB2F32547600A44B66 = {
 			isa = PBXGroup;
 			children = (
+				E353016A2F3A314500A44B66 /* Fonts */,
+				E35301622F34F36000A44B66 /* knife_chop_short.wav */,
 				E35300F62F32547600A44B66 /* BraidingGameSpriteKit */,
 				E35301042F32547700A44B66 /* BraidingGameSpriteKitTests */,
 				E353010E2F32547700A44B66 /* BraidingGameSpriteKitUITests */,
@@ -109,6 +134,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				E35300F62F32547600A44B66 /* BraidingGameSpriteKit */,
+				E353016A2F3A314500A44B66 /* Fonts */,
 			);
 			name = BraidingGameSpriteKit;
 			packageProductDependencies = (
@@ -212,6 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E35301632F34F36000A44B66 /* knife_chop_short.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,12 +427,12 @@
 				DEVELOPMENT_TEAM = 594SKYZ8NY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BraidingGameSpriteKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,12 +460,12 @@
 				DEVELOPMENT_TEAM = 594SKYZ8NY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BraidingGameSpriteKit/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

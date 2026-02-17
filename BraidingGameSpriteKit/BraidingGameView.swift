@@ -9,6 +9,7 @@ import SwiftUI
 import SpriteKit
 
 struct BraidingGameView: View {
+    @Environment(\.dismiss) private var dismiss
 
     private func makeScene(size: CGSize) -> SKScene {
         let scene = BraidingScene(size: size)
@@ -23,6 +24,18 @@ struct BraidingGameView: View {
             SpriteView(scene: makeScene(size: size))
                 .ignoresSafeArea()
         }
-        .navigationBarBackButtonHidden(false)
+        .navigationBarBackButtonHidden(true)   // ❗ hide chevron
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()                   // ❗ go back using hairpick
+                } label: {
+                    Image("hairpick_back_button")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75, height: 75)
+                }
+            }
+        }
     }
 }

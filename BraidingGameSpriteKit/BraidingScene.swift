@@ -10,7 +10,7 @@ import UIKit
 
 class BraidingScene: SKScene {
     
-    // MARK: - Braid Progress / Order
+    //Braid Progress / Order
     private var braid2Done = false
     private var braid3Done = false
     private var braid4Done = false
@@ -20,7 +20,7 @@ class BraidingScene: SKScene {
     
     private var braidTargetZone: CGRect = .zero
     
-    // MARK: - Nodes
+    // Nodes
     private var girlBase: SKSpriteNode!
     private var cornrowTop: SKSpriteNode!
     
@@ -34,13 +34,13 @@ class BraidingScene: SKScene {
     private var selectedBraid: SKSpriteNode?
     private var touchOffset: CGPoint = .zero
     
-    // MARK: - Layout Controls (YOU CAN TUNE THESE)
+    // Layout Controls (YOU CAN TUNE THESE)
     private let braidVerticalOffset: CGFloat = -28      // moves braids up/down
     private let braidHorizontalSpread: CGFloat = 44     // spacing between braids
     private let braidScale: CGFloat = 0.71              // braid length/size
     private let braidXOffset: CGFloat = -101             // moves all braids left/right
     
-    // MARK: - Scene Setup
+    //Scene Setup
     override func didMove(to view: SKView) {
         
         // BACKGROUND IMAGE

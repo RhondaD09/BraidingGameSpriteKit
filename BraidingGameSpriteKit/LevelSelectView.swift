@@ -5,72 +5,103 @@
 //  Created by Rhonda Davis on 2/2/26.
 //
 
-import Foundation
 import SwiftUI
 
 struct LevelSelectView: View {
     @Environment(\.dismiss) private var dismiss
-
+    
     var body: some View {
         ZStack {
-            // Background (green)
-            Image("level_background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-
-            VStack {
-                // Top row: Level 1, 2, 3
+            
+            // FOREGROUND CONTENT
+            VStack(spacing: 24) {
+                
+                // TOP ROW: hairpick back button
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image("hairpick_back_button")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .shadow(radius: 4)
+                    }
+                    .padding(.leading, 24)
+                    
+                    Spacer()
+                }
+                .padding(.top, 24)
+                
+                // TITLE
+                Text("Choose a Level")
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundColor(.white)
+                    .shadow(radius: 3)
+                
+                // LEVEL BUTTONS ROW — CENTERED
                 HStack(spacing: 32) {
-
-                    // 🔹 LEVEL 1 → Braiding game
+                    // Level 1 – Braiding
                     NavigationLink {
                         BraidingGameView()
                     } label: {
-                        Image("level_1")   // your Level 1 badge
+                        Image("level_1")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 120)
                     }
-
-                    // 🔸 LEVEL 2 (placeholder for now)
-                    Button {
-                        // TODO: hook up Level 2 later
+                    
+                    // Level 2 – Kitchen
+                    NavigationLink {
+                        KitchenSceneView()
                     } label: {
                         Image("level_2")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 120)
                     }
-                    .disabled(true) // disable until you’re ready
-
-                    // 🔸 LEVEL 3 (placeholder for now)
-                    Button {
-                        // TODO: hook up Level 3 later
+                    
+                    // Level 3 – Mouth & Grill
+                    NavigationLink {
+                        MouthSceneView()
                     } label: {
                         Image("level_3")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 120)
+                        // .opacity(0.35) // uncomment if you want it to look locked
                     }
-                    .disabled(true)
+                    
+                    
+//                    Level 4 - Puzzle
+//                    NavigationLink {
+//                        PuzzleSceneView()
+//                    } label: {
+//                        Image("level_4")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 120)
+//                    }
                 }
-                .padding(.top, 40)
-
-                Spacer()
-
-                // Bottom home button
-                Button {
-                    dismiss() // goes back to Tap In screen
-                } label: {
-                    Image("home_button")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80)
-                }
-                .padding(.bottom, 32)
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity, alignment: .center)  // 🔹 center row
+                
+                Spacer()   // 🔥 pins everything toward the top
             }
-            .padding(.horizontal, 40)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                Image("level_background")
+                    .resizable()
+                    .scaledToFill()
+            )
+            .ignoresSafeArea()
         }
+        .navigationBarBackButtonHidden(true)
+    }
+}
+
+#Preview {
+    NavigationStack {
+        LevelSelectView()
     }
 }
