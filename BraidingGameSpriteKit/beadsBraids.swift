@@ -156,13 +156,6 @@ class GameScene: SKScene {
 
         checkLevelCompletion()
         
-        func checkBraidCompletion(_ braidIndex: Int) {
-            
-            let beads = braidSlots[braidIndex]
-            guard beads.count == beadsPerBraid else { return }
-            
-            braidHighlights[braidIndex].strokeColor = .green
-        }
     }
     
     func checkLevelCompletion() {
@@ -281,4 +274,8 @@ struct BraidsView: View {
         SpriteView(scene: scene)
             .ignoresSafeArea()
     }
+}
+
+#Preview {
+    BraidsView()
 }
