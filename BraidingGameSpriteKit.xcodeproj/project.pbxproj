@@ -38,17 +38,29 @@
 		E35301692F3A306800A44B66 /* Exceptions for "BraidingGameSpriteKit" folder in "BraidingGameSpriteKit" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				.gitIgnore,
 				Info.plist,
 			);
 			target = E35300F32F32547600A44B66 /* BraidingGameSpriteKit */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		E3D952462F45FEC100DECEDF /* Exceptions for "BraidingGameSpriteKit" folder in "Compile Sources" phase from "BraidingGameSpriteKit" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = E35300F02F32547600A44B66 /* Sources */;
+			membershipExceptions = (
+				.gitIgnore,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E35300F62F32547600A44B66 /* BraidingGameSpriteKit */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				E35301692F3A306800A44B66 /* Exceptions for "BraidingGameSpriteKit" folder in "BraidingGameSpriteKit" target */,
+				E3D952462F45FEC100DECEDF /* Exceptions for "BraidingGameSpriteKit" folder in "Compile Sources" phase from "BraidingGameSpriteKit" target */,
 			);
 			path = BraidingGameSpriteKit;
 			sourceTree = "<group>";
