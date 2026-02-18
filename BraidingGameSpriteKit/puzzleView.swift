@@ -95,6 +95,7 @@ struct PuzzleView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 950)
+                        .position(x: geo.size.width / 2, y: geo.size.height / 2)
                         .scaleEffect(showFinishedPhoto ? 1 : 0.5)
                         .animation(.easeOut(duration: 0.6), value: showFinishedPhoto)
                         .onAppear {

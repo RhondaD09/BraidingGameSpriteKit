@@ -9,6 +9,10 @@ import SpriteKit
 import GameplayKit
 import SwiftUI
 
+extension Notification.Name {
+    static let braidsLevelCompleted = Notification.Name("braidsLevelCompleted")
+}
+
 class GameScene: SKScene {
     
     var girl: SKSpriteNode!
@@ -56,6 +60,8 @@ class GameScene: SKScene {
        
         
     }
+    
+    
     
     func setupGirl() {
         girl = SKSpriteNode(imageNamed: "girlBraids")
@@ -159,12 +165,15 @@ class GameScene: SKScene {
     }
     
     func checkLevelCompletion() {
-
+        
         for braid in braidSlots {
             if braid.count < beadsPerBraid {
                 return
             }
         }
+    
+        NotificationCenter.default.post(name: .braidsLevelCompleted, object: nil)
+        
     }
     
     
@@ -257,25 +266,74 @@ class GameScene: SKScene {
             }
     }
         
+
+
+
+
+
+
 extension CGPoint {
 func distance(to point: CGPoint) -> CGFloat {
         sqrt(pow(x - point.x, 2) + pow(y - point.y, 2))
     }
 }
 struct BraidsView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var showCelebration = false
+    
     var scene: SKScene {
         let scene = GameScene()
         scene.size = CGSize(width: 1024, height: 768) // Set to your preferred game size
         scene.scaleMode = .fill
         return scene
     }
-
+    
+    
+    
+    
     var body: some View {
-        SpriteView(scene: scene)
-            .ignoresSafeArea()
+        ZStack {
+            SpriteView(scene: scene)
+                .ignoresSafeArea()
+            
+            if showCelebration{
+                CelebrationView()
+                    .transition(.opacity)
+                    .zIndex(1)
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .braidsLevelCompleted)) { _ in
+            withAnimation {
+                showCelebration = true
+            }
+        }
+        
+        
+        
+        VStack {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image("hairpick_back_button")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                }
+                .padding(.leading, 6)
+                .padding(.top, -525)
+                
+                Spacer()
+            }
+            Spacer()
+        }
+        .ignoresSafeArea()
+        
     }
+    
 }
 
 #Preview {
     BraidsView()
 }
+

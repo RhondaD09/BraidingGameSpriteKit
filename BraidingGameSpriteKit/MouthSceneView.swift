@@ -22,6 +22,27 @@ struct MouthSceneView: View {
             SpriteView(scene: scene)
                 .ignoresSafeArea()
             
+            
+            VStack {
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image("green_pick")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150, height: 150)
+                    }
+                    .padding(.leading, 20)
+                    .padding(.top, 20)
+                    Spacer()
+                }
+                Spacer()
+            }
+            .ignoresSafeArea()
+
+            
+            
             VStack {
                 HStack {
                     Spacer()

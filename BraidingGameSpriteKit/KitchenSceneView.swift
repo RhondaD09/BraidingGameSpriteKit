@@ -5,8 +5,6 @@
 //Created by Rhonda Davis on 2/1/26
 //
 
-
-
 import SwiftUI
 import SpriteKit
 
@@ -36,7 +34,7 @@ struct KitchenSceneView: View {
                         }
                     }
                 }
-            
+
             // ⭕ Top-right exit button for the kitchen scene (optional)
             VStack {
                 HStack {
@@ -54,30 +52,49 @@ struct KitchenSceneView: View {
                 }
                 Spacer()
             }
-            
-            
+            .ignoresSafeArea()
+
+            // Additional button (green_pick) aligned top-left as implied by padding
+            VStack {
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image("green_pick")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 130, height: 130)
+                    }
+                    .padding(.leading, 20)
+                    .padding(.top, 20)
+                    Spacer()
+                }
+                Spacer()
+            }
+            .ignoresSafeArea()
+
             // 🎉 Celebration popup when greens are fully chopped
             if showCelebration {
                 ZStack {
                     // Dim background behind popup
                     Color.black.opacity(0.5)
                         .ignoresSafeArea()
-                    
+
                     VStack(spacing: 24) {
-                        
                         Text("Greens Chopped!")
                             .font(.system(size: 48, weight: .bold))
                             .foregroundColor(.white)
                             .shadow(radius: 5)
+
                         // Your existing celebration animation
                         CelebrationView(
                             onGoToLevel3: {
                                 showCelebration = false
                                 navigateToLevel3 = true
                             }
-                            
                         )
-                        .frame(maxWidth: 400, maxHeight:400)
+                        .frame(maxWidth: 400, maxHeight: 400)
+
                         // 🧼 Reset button – goes back to LevelView
                         Button {
                             // hide popup
@@ -96,14 +113,13 @@ struct KitchenSceneView: View {
                 .zIndex(1)
             }
         }
-        
         .navigationDestination(isPresented: $navigateToLevel3) {
             MouthSceneView()
         }
-        
         .navigationBarBackButtonHidden(true)
     }
 }
+
 #Preview {
     KitchenSceneView()
 }
